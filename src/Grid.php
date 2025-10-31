@@ -21,6 +21,7 @@ final class Grid
     private int $height;
     /** @var bool[][] */
     private array $cells;
+
     /**
      * Creates a new Grid based on the given dimensions and initial state.
      * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
@@ -39,7 +40,6 @@ final class Grid
         }
 
         if ($initialState === null) {
-
             $initialState = [];
             for ($y = 0; $y < $height; $y++) {
                 $initialState[$y] = array_fill(0, $width, false);
@@ -50,7 +50,6 @@ final class Grid
         $this->width = count($initialState);
         $this->height = count($initialState[0]);
         $this->cells = $initialState;
-
     }
 
     /**
@@ -71,54 +70,6 @@ final class Grid
     public function getHeight(): int
     {
         return $this->height;
-    }
-
-    /**
-     * Returns true if the given coordinates are within the grid bounds, otherwise false.
-     *
-     * @param int $x
-     * @param int $y
-     * @return bool
-     */
-    public function inBounds(int $x, int $y): bool
-    {
-        return $x >= 0 && $x < $this->width && $y >= 0 && $y < $this->height;
-    }
-
-    /**
-     * Returns if a cell is alive at the given coordinates.
-     *
-     * @param int $x
-     * @param int $y
-     * @return bool
-     */
-    public function get(int $x, int $y): bool
-    {
-        if (!$this->inBounds($x, $y)) {
-            return false;
-        }
-        return $this->cells[$y][$x];
-    }
-
-    /**
-     * Returns the number of live neighbors for a given cell.
-     *
-     * @param int $x
-     * @param int $y
-     * @return int
-     */
-    public function countAliveNeighbours(int $x, int $y): int
-    {
-        $count = 0;
-        for ($neighbourY = -1; $neighbourY <= 1; $neighbourY++) {
-            for ($neighbourX = -1; $neighbourX <= 1; $neighbourX++) {
-                if ($neighbourX === 0 && $neighbourY === 0) continue;
-                if ($this->get($x + $neighbourX, $y + $neighbourY)) {
-                    $count++;
-                }
-            }
-        }
-        return $count;
     }
 
     /**
@@ -154,5 +105,53 @@ final class Grid
         }
 
         return new self($this->width, $this->height, $nextCells);
+    }
+
+    /**
+     * Returns if a cell is alive at the given coordinates.
+     *
+     * @param int $x
+     * @param int $y
+     * @return bool
+     */
+    public function get(int $x, int $y): bool
+    {
+        if (!$this->inBounds($x, $y)) {
+            return false;
+        }
+        return $this->cells[$y][$x];
+    }
+
+    /**
+     * Returns true if the given coordinates are within the grid bounds, otherwise false.
+     *
+     * @param int $x
+     * @param int $y
+     * @return bool
+     */
+    public function inBounds(int $x, int $y): bool
+    {
+        return $x >= 0 && $x < $this->width && $y >= 0 && $y < $this->height;
+    }
+
+    /**
+     * Returns the number of live neighbors for a given cell.
+     *
+     * @param int $x
+     * @param int $y
+     * @return int
+     */
+    public function countAliveNeighbours(int $x, int $y): int
+    {
+        $count = 0;
+        for ($neighbourY = -1; $neighbourY <= 1; $neighbourY++) {
+            for ($neighbourX = -1; $neighbourX <= 1; $neighbourX++) {
+                if ($neighbourX === 0 && $neighbourY === 0) continue;
+                if ($this->get($x + $neighbourX, $y + $neighbourY)) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
     }
 }
