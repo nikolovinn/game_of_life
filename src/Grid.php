@@ -25,7 +25,7 @@ final class Grid
     /**
      * Creates a new Grid based on the given dimensions and initial state.
      * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
-     * Otherwise, the dimensions are taken from the parameters and an empty initial state is generated.
+     * Otherwise, the dimensions are taken from the parameters and a random initial state is generated.
      *
      *
      * @param int $width
@@ -42,7 +42,7 @@ final class Grid
         if ($initialState === null) {
             $initialState = [];
             for ($y = 0; $y < $height; $y++) {
-                $initialState[$y] = array_fill(0, $width, false);
+                $initialState[$y] = array_fill(0, $width, (bool) rand(0, 1));
             }
 
         }
