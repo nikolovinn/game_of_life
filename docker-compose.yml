@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: gameoflife-php
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/vendor
+    command: php index.php
+    tty: true

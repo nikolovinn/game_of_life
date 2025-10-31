@@ -1,0 +1,17 @@
+{
+  "name": "nikolovinn/game_of_life",
+  "description": "Charge Point coding test implementation of Game of Life",
+  "authors": [
+    {
+      "name": "Ivan Nikolov",
+      "email": "nikolov.inn@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {
+  }
+}
