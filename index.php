@@ -4,6 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\GameOfLife;
 use App\Grid;
+use App\GridGenerators\GliderGenerator;
 use App\Renderer;
 
 $universeWidth   = 25;
@@ -11,7 +12,8 @@ $universeHeight  = 25;
 $numberOfGenerationsToSimulate    = 40;
 $delayMs = 120;
 
-$grid = Grid::createRandom($universeWidth, $universeHeight);
+//$grid = Grid::createRandom($universeWidth, $universeHeight);
+$grid = new GliderGenerator()->generate($universeWidth, $universeHeight);
 $game = new GameOfLife($grid);
 $renderer = new Renderer();
 
