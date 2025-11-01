@@ -20,7 +20,9 @@ final class Grid
      * @var int
      */
     private int $height;
-    /** @var bool[][] */
+    /**
+     * @var bool[][]
+     */
     private array $cells;
 
     /**
