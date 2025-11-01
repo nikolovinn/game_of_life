@@ -34,7 +34,7 @@ final class Grid
      * @param array|null $initialState
      * @throws InvalidArgumentException
      */
-    public function __construct(int $width, int $height, ?array $initialState = null)
+    private function __construct(int $width, int $height, ?bool $random = false, ?array $initialState = null)
     {
         if ($width <= 0 || $height <= 0) {
             throw new InvalidArgumentException('Grid dimensions must be positive.');
@@ -43,7 +43,10 @@ final class Grid
         if ($initialState === null) {
             $initialState = [];
             for ($y = 0; $y < $height; $y++) {
-                $initialState[$y] = array_fill(0, $width, (bool) rand(0, 1));
+                //If random is true, generate a random initial state.
+                //Otherwise, generate empty grid.
+                $alive = $random && (bool)rand(0, 1);
+                $initialState[$y] = array_fill(0, $width, $alive);
             }
 
         }
@@ -51,6 +54,41 @@ final class Grid
         $this->width = count($initialState);
         $this->height = count($initialState[0]);
         $this->cells = $initialState;
+    }
+
+    /**
+     * Creates a new randomly generated Grid with the given dimensions.
+     *
+     * @param int $width
+     * @param int $height
+     * @return self
+     */
+    public static function createRandom(int $width, int $height): self
+    {
+        return new self($width, $height, true);
+    }
+
+    /**
+     * Creates a new Grid with all cells dead and the given dimensions.
+     *
+     * @param int $width
+     * @param int $height
+     * @return self
+     */
+    public static function createEmpty(int $width, int $height): self
+    {
+        return new self($width, $height);
+    }
+
+    /**
+     * Creates a new Grid based on the given state.
+     *
+     * @param array $cells
+     * @return self
+     */
+    public static function createFromState(array $cells): self
+    {
+        return new self(count($cells), count($cells[0]), false, $cells);
     }
 
     /**
@@ -97,12 +135,12 @@ final class Grid
             for ($x = 0; $x < $this->width; $x++) {
                 $alive = $this->get($x, $y);
                 $n = $this->countAliveNeighbours($x, $y);
-                
+
                 $nextCells[$y][$x] = $ruleSet->willBeAlive($alive, $n);
             }
         }
 
-        return new self($this->width, $this->height, $nextCells);
+        return self::createFromState($nextCells);
     }
 
     /**

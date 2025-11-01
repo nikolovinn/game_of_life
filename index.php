@@ -11,7 +11,7 @@ $universeHeight  = 25;
 $numberOfGenerationsToSimulate    = 40;
 $delayMs = 120;
 
-$grid = new Grid($universeWidth, $universeHeight);
+$grid = Grid::createRandom($universeWidth, $universeHeight);
 $game = new GameOfLife($grid);
 $renderer = new Renderer();
 
