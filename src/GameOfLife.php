@@ -2,6 +2,10 @@
 
 namespace App;
 
+
+use App\Rules\OriginalConwayRule;
+use App\Rules\Interfaces\RuleSet;
+
 /**
  * Class representing the Game of Life
  *
@@ -9,11 +13,19 @@ namespace App;
  */
 final class GameOfLife
 {
+    private Grid $grid;
+    private RuleSet $ruleSet;
+
     /**
      *
      * @param Grid $grid
+     * @param RuleSet|null $ruleSet
      */
-    public function __construct(private Grid $grid) {}
+    public function __construct(Grid $grid, ?RuleSet $ruleSet = null)
+    {
+        $this->grid = $grid;
+        $this->ruleSet = $ruleSet ?? new OriginalConwayRule();
+    }
 
     /**
      * Returns the current grid state.
@@ -28,10 +40,12 @@ final class GameOfLife
     /**
      * Ticks the game of life.
      *
-     * @return self
+     * @return GameOfLife
      */
     public function tick(): self
     {
-        return new self($this->grid->createNextGeneration());
+        return new self(
+            $this->grid->createNextGeneration($this->ruleSet)
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Rules\Interfaces\RuleSet;
 use InvalidArgumentException;
 
 /**
@@ -87,7 +88,7 @@ final class Grid
      *
      * @return Grid
      */
-    public function createNextGeneration(): self
+    public function createNextGeneration(RuleSet $ruleSet): self
     {
         $nextCells = [];
 
@@ -96,11 +97,8 @@ final class Grid
             for ($x = 0; $x < $this->width; $x++) {
                 $alive = $this->get($x, $y);
                 $n = $this->countAliveNeighbours($x, $y);
-
-                // Apply Conway’s rules
-                $nextCells[$y][$x] = $alive
-                    ? ($n === 2 || $n === 3)
-                    : ($n === 3);
+                
+                $nextCells[$y][$x] = $ruleSet->willBeAlive($alive, $n);
             }
         }
 
