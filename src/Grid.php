@@ -144,7 +144,7 @@ final class Grid
      * @param int $y
      * @return int
      */
-    public function countAliveNeighbours(int $x, int $y): int
+    private function countAliveNeighbours(int $x, int $y): int
     {
         $count = 0;
         for ($neighbourY = -1; $neighbourY <= 1; $neighbourY++) {
