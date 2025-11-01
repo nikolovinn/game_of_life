@@ -19,20 +19,20 @@ final class GliderGenerator extends AbstractGenerator
      * @param int $height
      * @return bool
      */
-    public function generate(int $width, int $height): Grid
+    public function generate(): Grid
     {
-        $grid = Grid::createEmpty($width, $height);
+        $gliderPattern = $this->getPattern();
+        $startPosition = $this->getStartPositionForCenterPlacement();
 
-        //TO DO: calculate the center by the patten size.
-        $x = intdiv($grid->getWidth() - 3, 2);
-        $y = intdiv($grid->getHeight() - 3, 2);
+        return self::seedAt($this->grid, $startPosition[1], $startPosition[1], $gliderPattern);
+    }
 
-        $gliderPattern = [
+    protected function getPattern(): array
+    {
+        return [
             [1, 0],
             [2, 1],
             [0, 2], [1, 2], [2, 2],
         ];
-
-        return self::seedAt($grid, $x, $y, $gliderPattern);
     }
 }

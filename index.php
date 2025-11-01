@@ -7,13 +7,12 @@ use App\Grid;
 use App\GridGenerators\GliderGenerator;
 use App\Renderer;
 
-$universeWidth   = 25;
-$universeHeight  = 25;
-$numberOfGenerationsToSimulate    = 40;
+$universeWidth = 25;
+$universeHeight = 25;
+$numberOfGenerationsToSimulate = 40;
 $delayMs = 120;
 
-//$grid = Grid::createRandom($universeWidth, $universeHeight);
-$grid = new GliderGenerator()->generate($universeWidth, $universeHeight);
+$grid = new GliderGenerator($universeWidth, $universeHeight)->generate();
 $game = new GameOfLife($grid);
 $renderer = new Renderer();
 
