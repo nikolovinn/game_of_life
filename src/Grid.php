@@ -24,39 +24,6 @@ final class Grid
     private array $cells;
 
     /**
-     * Creates a new Grid based on the given dimensions and initial state.
-     * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
-     * Otherwise, the dimensions are taken from the parameters and a random initial state is generated.
-     *
-     *
-     * @param int $width
-     * @param int $height
-     * @param array|null $initialState
-     * @throws InvalidArgumentException
-     */
-    private function __construct(int $width, int $height, ?bool $random = false, ?array $initialState = null)
-    {
-        if ($width <= 0 || $height <= 0) {
-            throw new InvalidArgumentException('Grid dimensions must be positive.');
-        }
-
-        if ($initialState === null) {
-            $initialState = [];
-            for ($y = 0; $y < $height; $y++) {
-                //If random is true, generate a random initial state.
-                //Otherwise, generate empty grid.
-                $alive = $random && (bool)rand(0, 1);
-                $initialState[$y] = array_fill(0, $width, $alive);
-            }
-
-        }
-
-        $this->width = count($initialState);
-        $this->height = count($initialState[0]);
-        $this->cells = $initialState;
-    }
-
-    /**
      * Creates a new randomly generated Grid with the given dimensions.
      *
      * @param int $width
@@ -189,5 +156,38 @@ final class Grid
             }
         }
         return $count;
+    }
+
+    /**
+     * Creates a new Grid based on the given dimensions and initial state.
+     * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
+     * Otherwise, the dimensions are taken from the parameters and a random initial state is generated.
+     *
+     *
+     * @param int $width
+     * @param int $height
+     * @param bool|null $random
+     * @param array|null $initialState
+     */
+    private function __construct(int $width, int $height, ?bool $random = false, ?array $initialState = null)
+    {
+        if ($width <= 0 || $height <= 0) {
+            throw new InvalidArgumentException('Grid dimensions must be positive.');
+        }
+
+        if ($initialState === null) {
+            $initialState = [];
+            for ($y = 0; $y < $height; $y++) {
+                //If random is true, generate a random initial state.
+                //Otherwise, generate empty grid.
+                $alive = $random && (bool)rand(0, 1);
+                $initialState[$y] = array_fill(0, $width, $alive);
+            }
+
+        }
+
+        $this->width = count($initialState);
+        $this->height = count($initialState[0]);
+        $this->cells = $initialState;
     }
 }

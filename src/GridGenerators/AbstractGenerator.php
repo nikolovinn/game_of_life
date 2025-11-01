@@ -19,6 +19,15 @@ abstract class AbstractGenerator
     }
 
     /**
+     * Generates the grid.
+     *
+     * @param int $width
+     * @param int $height
+     * @return Grid
+     */
+    abstract public function generate():Grid;
+
+    /**
      * Seed a pattern in a give grid with a given position.
      *
      * @param Grid $grid
@@ -71,16 +80,4 @@ abstract class AbstractGenerator
      * @return array
      */
     abstract protected function getPattern(): array;
-
-    /**
-     * Generates the grid.
-     *
-     * @param int $width
-     * @param int $height
-     * @return Grid
-     */
-    abstract public function generate():Grid;
-
-
-
 }

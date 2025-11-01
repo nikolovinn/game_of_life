@@ -10,7 +10,6 @@ use App\Grid;
  */
 final class GliderGenerator extends AbstractGenerator
 {
-
     /**
      * Generates a glider pattern in the center of a grid
      * with the given dimensions.
