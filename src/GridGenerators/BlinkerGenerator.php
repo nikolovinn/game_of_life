@@ -11,12 +11,10 @@ use App\Grid;
 final class BlinkerGenerator extends AbstractGenerator
 {
     /**
-     * Generates a glider pattern in the center of a grid
+     * Generates a blinker pattern in the center of a grid
      * with the given dimensions.
      *
-     * @param int $width
-     * @param int $height
-     * @return bool
+     * @return Grid
      */
     public function generate(): Grid
     {
