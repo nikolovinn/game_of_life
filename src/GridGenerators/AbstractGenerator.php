@@ -68,7 +68,7 @@ abstract class AbstractGenerator
         $maxHeight = max($ys) - min($ys) + 1;
 
         $startX = intdiv($this->grid->getWidth() - $maxWidth, 2);
-        $startY = intdiv($this->grid->getHeight() - $maxWidth, 2);
+        $startY = intdiv($this->grid->getHeight() - $maxHeight, 2);
 
         return [$startX, $startY];
     }
