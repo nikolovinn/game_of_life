@@ -40,7 +40,7 @@ final class GameOfLife
     /**
      * Ticks the game of life.
      *
-     * @return GameOfLife
+     * @return self
      */
     public function tick(): self
     {

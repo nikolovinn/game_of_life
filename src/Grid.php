@@ -26,6 +26,40 @@ final class Grid
     private array $cells;
 
     /**
+     * Creates a new Grid based on the given dimensions and initial state.
+     * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
+     * Otherwise, the dimensions are taken from the parameters and a random initial state is generated.
+     *
+     *
+     * @param int $width
+     * @param int $height
+     * @param bool|null $random
+     * @param array|null $initialState
+     */
+    private function __construct(int $width, int $height, ?bool $random = false, ?array $initialState = null)
+    {
+        if ($width <= 0 || $height <= 0) {
+            throw new InvalidArgumentException('Grid dimensions must be positive.');
+        }
+
+        if ($initialState === null) {
+            $initialState = [];
+            for ($y = 0; $y < $height; $y++) {
+                for ($x = 0; $x < $width; $x++) {
+                    //If random is true, generate a random initial state.
+                    //Otherwise, generate empty grid.
+                    $alive = $random && (bool)rand(0, 1);
+                    $initialState[$y][$x] = $alive;
+                }
+            }
+        }
+
+        $this->height = count($initialState);
+        $this->width = count($initialState[0]);
+        $this->cells = $initialState;
+    }
+
+    /**
      * Creates a new randomly generated Grid with the given dimensions.
      *
      * @param int $width
@@ -38,6 +72,17 @@ final class Grid
     }
 
     /**
+     * Creates a new Grid based on the given state.
+     *
+     * @param array $cells
+     * @return self
+     */
+    public static function createFromState(array $cells): self
+    {
+        return new self(count($cells[0]), count($cells), false, $cells);
+    }
+
+    /**
      * Creates a new Grid with all cells dead and the given dimensions.
      *
      * @param int $width
@@ -47,17 +92,6 @@ final class Grid
     public static function createEmpty(int $width, int $height): self
     {
         return new self($width, $height);
-    }
-
-    /**
-     * Creates a new Grid based on the given state.
-     *
-     * @param array $cells
-     * @return self
-     */
-    public static function createFromState(array $cells): self
-    {
-        return new self(count($cells), count($cells[0]), false, $cells);
     }
 
     /**
@@ -91,7 +125,7 @@ final class Grid
     }
 
     /**
-     * Generates the next generation of the Grid, based on the Conway's rules.
+     * Generates the next generation of the Grid, based on the provided rules.
      *
      * @return Grid
      */
@@ -148,36 +182,5 @@ final class Grid
         return $count;
     }
 
-    /**
-     * Creates a new Grid based on the given dimensions and initial state.
-     * If an initial state is provided, the dimensions are taken from it and the width and height parameters are ignored.
-     * Otherwise, the dimensions are taken from the parameters and a random initial state is generated.
-     *
-     *
-     * @param int $width
-     * @param int $height
-     * @param bool|null $random
-     * @param array|null $initialState
-     */
-    private function __construct(int $width, int $height, ?bool $random = false, ?array $initialState = null)
-    {
-        if ($width <= 0 || $height <= 0) {
-            throw new InvalidArgumentException('Grid dimensions must be positive.');
-        }
 
-        if ($initialState === null) {
-            $initialState = [];
-            for ($y = 0; $y < $height; $y++) {
-                //If random is true, generate a random initial state.
-                //Otherwise, generate empty grid.
-                $alive = $random && (bool)rand(0, 1);
-                $initialState[$y] = array_fill(0, $width, $alive);
-            }
-
-        }
-
-        $this->width = count($initialState);
-        $this->height = count($initialState[0]);
-        $this->cells = $initialState;
-    }
 }

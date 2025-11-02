@@ -74,7 +74,7 @@ abstract class AbstractGenerator
 
     /**
      * Returns the pattern to be used for seeding.
-     *
+     * The pattern is defined by setting only the positions of the live cells
      *
      * @return array
      */
