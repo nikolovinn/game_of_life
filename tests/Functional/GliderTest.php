@@ -10,19 +10,15 @@ class GliderTest extends TestCase
 {
     public function testGliderMovesDiagonally(): void
     {
-        $width = 25;
-        $height = 25;
+        $game = new GameOfLife();
 
-        $initialGrid = new GliderGenerator($width, $height)->generate();
-        $game = new GameOfLife($initialGrid);
-
-        $initialLiveCells = $this->getLiveCellPositions($game->getGrid());
+        $initialLiveCells = $this->getLiveCellPositions($game->getCurrentGrid());
 
         for ($i = 0; $i < 4; $i++) {
-            $game = $game->tick();
+            $game->tick();
         }
 
-        $newLiveCells = $this->getLiveCellPositions($game->getGrid());
+        $newLiveCells = $this->getLiveCellPositions($game->getCurrentGrid());
 
         $deltaX = $this->calculateDelta($initialLiveCells, $newLiveCells, 0); // x-coordinate
         $deltaY = $this->calculateDelta($initialLiveCells, $newLiveCells, 1); // y-coordinate

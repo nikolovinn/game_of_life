@@ -1,4 +1,4 @@
-Conway's Game of Life Implementation
+# Conway's Game of Life 
 
 ## Overview
 This repository contains a PHP implementation of Conway's Game of Life, a cellular automaton that simulates the evolution of a population of cells based on a set of simple rules. The project was developed as a demonstration of software engineering principles, including clean code architecture, SOLID principles, and modern PHP practices.
@@ -42,7 +42,7 @@ The project is built using:
     docker compose build
     ```
     ```bash
-    docker compose run app
+    docker compose run -rm app
     ```
    
 4. Running the tests
@@ -54,7 +54,7 @@ The project is built using:
 ### Running without Docker
 
 #### Prerequisites
-- PHP 8.4 CLI installed and accessible from command line
+- PHP 8.4 CLI installed and accessible from the command line
 - Composer installed (global or local)
 
 #### Installation and Running
@@ -74,24 +74,13 @@ The project is built using:
    ```bash
    vendor/bin/phpunit tests
    ```
-   
-
 
 ### Running the Simulation
-The simulation will automatically:
+The simulation will by default:
 - Create a 25x25 universe
 - Place a Glider pattern in the center
-- Run for 40 generations
+- Run for 100 generations
 - Display each generation in the console with a small delay
-- Basic parameters can be changed in index.php file:
-
-<code>$universeWidth = 25</code>
-
-<code>$universeHeight = 25</code>
-
-<code>$numberOfGenerationsToSimulate = 40</code>
-
-<code>$delayMs = 120</code>
 
 ## Future Improvements
 

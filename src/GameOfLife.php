@@ -3,6 +3,9 @@
 namespace App;
 
 
+use App\GridGenerators\GliderGenerator;
+use App\Presentation\ConsoleRenderer;
+use App\Presentation\Interfaces\Renderer;
 use App\Rules\OriginalConwayRule;
 use App\Rules\Interfaces\RuleSet;
 
@@ -13,39 +16,69 @@ use App\Rules\Interfaces\RuleSet;
  */
 final class GameOfLife
 {
+    /**
+     * @var int|null
+     */
+    private int $numberOfGenerationsToSimulate;
+    /**
+     * @var Grid
+     */
     private Grid $grid;
+    /**
+     * @var RuleSet|OriginalConwayRule
+     */
     private RuleSet $ruleSet;
+    /**
+     * @var Renderer|ConsoleRenderer
+     */
+    private Renderer $renderer;
 
     /**
      *
-     * @param Grid $grid
+     * @param Grid|null $initialGrid
      * @param RuleSet|null $ruleSet
+     * @param int|null $numberOfGenerationsToSimulate
      */
-    public function __construct(Grid $grid, ?RuleSet $ruleSet = null)
+    public function __construct(?Grid $initialGrid = null, ?RuleSet $ruleSet = null, ?Renderer $renderer = null, ?int $numberOfGenerationsToSimulate = 100)
     {
-        $this->grid = $grid;
+        $this->grid = $initialGrid ?? new GliderGenerator(25, 25)->generate();
         $this->ruleSet = $ruleSet ?? new OriginalConwayRule();
+        $this->renderer = $renderer ?? new ConsoleRenderer();
+        $this->numberOfGenerationsToSimulate = $numberOfGenerationsToSimulate;
     }
 
     /**
-     * Returns the current grid state.
+     * Runs the game
      *
-     * @return Grid
+     * @return void
      */
-    public function getGrid(): Grid
+    public function run(): void
     {
-        return $this->grid;
+        for ($i = 0; $i <= $this->numberOfGenerationsToSimulate; $i++) {
+            $this->renderer->render($this->grid);
+            $this->tick();
+        }
     }
 
     /**
      * Ticks the game of life.
      *
-     * @return self
+     * @return void
      */
-    public function tick(): self
+    public function tick(): void
     {
-        return new self(
-            $this->grid->createNextGeneration($this->ruleSet)
-        );
+        $this->grid = $this->grid->createNextGeneration($this->ruleSet);
     }
+
+    /**
+     * Returns the current grid.
+     *
+     *
+     * @return Grid
+     */
+    public function getCurrentGrid(): Grid
+    {
+        return $this->grid;
+    }
+
 }

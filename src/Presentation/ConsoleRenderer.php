@@ -1,13 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Presentation;
+
+use App\Grid;
+use App\Presentation\Interfaces\Renderer;
 
 /**
  * Class responsible for drawing a grid to the console.
  *
  * @author Ivan Nikolov
  */
-final class Renderer
+final class ConsoleRenderer implements Renderer
 {
     /**
      * @var string
@@ -49,5 +52,7 @@ final class Renderer
             }
             echo $line, PHP_EOL;
         }
+
+        usleep(120 * 1000);
     }
 }
