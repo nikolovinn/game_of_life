@@ -121,22 +121,10 @@ final class Grid
      */
     public function get(int $x, int $y): bool
     {
-        if (!$this->inBounds($x, $y)) {
-            return false;
-        }
-        return $this->cells[$y][$x];
-    }
+        $x = ($x + $this->width) % $this->width;
+        $y = ($y + $this->height) % $this->height;
 
-    /**
-     * Returns true if the given coordinates are within the grid bounds, otherwise false.
-     *
-     * @param int $x
-     * @param int $y
-     * @return bool
-     */
-    public function inBounds(int $x, int $y): bool
-    {
-        return $x >= 0 && $x < $this->width && $y >= 0 && $y < $this->height;
+        return $this->cells[$y][$x];
     }
 
     /**

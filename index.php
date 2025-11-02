@@ -8,7 +8,7 @@ use App\Renderer;
 
 $universeWidth = 25;
 $universeHeight = 25;
-$numberOfGenerationsToSimulate = 40;
+$numberOfGenerationsToSimulate = 100;
 $delayMs = 120;
 
 $grid = new GliderGenerator($universeWidth, $universeHeight)->generate();

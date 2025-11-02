@@ -43,9 +43,8 @@ abstract class AbstractGenerator
         foreach ($pattern as [$dx, $dy]) {
             $nx = $x + $dx;
             $ny = $y + $dy;
-            if ($grid->inBounds($nx, $ny)) {
-                $cells[$ny][$nx] = true;
-            }
+
+            $cells[$ny][$nx] = true;
         }
 
         return Grid::createFromState($cells);
