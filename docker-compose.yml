@@ -5,6 +5,19 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
-      - /app/vendor
+      - vendor:/app/vendor
     command: php index.php
     tty: true
+  test:
+    build: .
+    container_name: gameoflife-test
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - vendor:/app/vendor
+    command: vendor/bin/phpunit
+volumes:
+  vendor:
+
+
+

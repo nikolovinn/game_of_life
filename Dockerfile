@@ -15,14 +15,19 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Set the working directory
 WORKDIR /app
 
-# Copy composer files
-COPY composer.json composer.lock* ./
+# Copy the entire project
+COPY . .
+
+# Set ownership to app user
+RUN chown -R app:app /app
+
+
+# Drop privileges
+USER app
 
 # Install dependencies
 RUN composer install --no-interaction --no-progress --prefer-dist
 
-# Drop privileges
-USER app
 
 # Default command: run your entry script (you can override in docker-compose)
 CMD ["php", "index.php"]

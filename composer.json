@@ -1,6 +1,6 @@
 {
   "name": "nikolovinn/game_of_life",
-  "description": "Charge Point coding test implementation of Game of Life",
+  "description": "PHP Implementation of Game of Life",
   "authors": [
     {
       "name": "Ivan Nikolov",
@@ -13,5 +13,17 @@
     }
   },
   "require": {
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Unit\\": "tests/Unit/",
+      "Tests\\Functional\\": "tests/Functional/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests"
   }
 }
