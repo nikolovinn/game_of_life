@@ -15,7 +15,7 @@ The Game of Life is played on an infinite two-dimensional grid where cells can b
 The project is built using:
 - PHP 8.4 CLI
 - Docker and Docker Compose for containerization.
-- Composer for dependency management (no external dependencies are used).
+- Composer for dependency management.
 - PSR-4 autoloading standard.
 - Clear separation of concerns.
 - Abstract classes and interfaces.
@@ -34,7 +34,7 @@ The project is built using:
 - Docker and Docker Compose installed on your system.
 - Git for cloning the repository.
 
-### Installation
+### Installation and start
 1. Clone the repository.
 2. Navigate to the project directory.
 3. Build and run the Docker container:
@@ -42,8 +42,14 @@ The project is built using:
     docker compose build
     ```
     ```bash
-    docker compose up
+    docker compose run app
     ```
+   
+4. Running the tests
+
+   ```bash
+    docker compose run -rm test
+   ```
 
 ### Running without Docker
 
@@ -62,6 +68,13 @@ The project is built using:
    ```bash
    php index.php
    ```
+
+5. Running the tests:
+
+   ```bash
+   vendor/bin/phpunit tests
+   ```
+   
 
 
 ### Running the Simulation
@@ -82,9 +95,10 @@ The simulation will automatically:
 
 ## Future Improvements
 
+- Extend test coverage
 - Implement additional rendering options
 - Create an interactive mode
 - Implement different rules
-- Implement different starting patterns
-- Add unit tests
+
+
 
